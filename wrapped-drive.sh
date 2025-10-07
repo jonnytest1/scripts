@@ -63,8 +63,8 @@ LAST_READ=$(dd if="$DISK" bs=$BLOCK_SIZE count=1 skip=$LAST_SECTOR status=none |
 # Read halfway sector
 HALF_READ=$(dd if="$DISK" bs=$BLOCK_SIZE count=1 skip=$HALF_SECTOR status=none |hexdump -v -C)
 
-echo "Last sector: $LAST_READ"
-echo "Halfway sector: $HALF_READ"
+echo "Last sector: \n$LAST_READ"
+echo "Halfway sector: \n$HALF_READ"
 
 if [ "$LAST_READ" == "$HALF_READ" ]; then
     echo "Drive is likely wrapping! Fake detected."
@@ -78,7 +78,7 @@ HALF_READ=$(dd if="$DISK" bs=$BLOCK_SIZE count=1 skip=$PREV_SECTOR status=none |
 if [ "$LAST_READ" == "$HALF_READ" ]; then
     echo "Drive is likely wrapping! Fake detected."
 else
-    echo "No wrap detected at halfway point. Drive may be genuine."
+    echo "No wrap detected at halfway point-1. Drive may be genuine."
 fi
 
 # Read halfway sector +1
@@ -86,5 +86,5 @@ HALF_READ=$(dd if="$DISK" bs=$BLOCK_SIZE count=1 skip=$NEXT_SECTOR status=none |
 if [ "$LAST_READ" == "$HALF_READ" ]; then
     echo "Drive is likely wrapping! Fake detected."
 else
-    echo "No wrap detected at halfway point. Drive may be genuine."
+    echo "No wrap detected at halfway point+1. Drive may be genuine."
 fi
