@@ -6,7 +6,7 @@ echo "⚠️ WARNING: This test will WRITE to the last sector of the disk."
 echo "Any existing data in that sector may be CORRUPTED or LOST!"
 echo "Proceeding may destroy data. Make sure you have backups."
 
-read -p "Type YES to continue, anything else to abort: " CONFIRM
+read -p "Type YES to continue, anything else to abort: " CONFIRM </dev/tty
 
 if [ "$CONFIRM" != "YES" ]; then
     echo "Aborted. No data was written."
