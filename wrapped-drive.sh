@@ -23,6 +23,11 @@ for cmd in "${REQUIRED_CMDS[@]}"; do
 done
 
 
+if [ -z "$1" ]; then
+    echo "❌ No disk specified!"
+    echo "Usage: $0 /dev/sdX"
+    exit 1
+fi
 
 DISK="$1"
 
