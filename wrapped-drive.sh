@@ -2,8 +2,17 @@
 # WARNING: Destructive test
 # Usage: sudo ./check_wrap.sh /dev/sdX
 
-echo "⚠️ WARNING: This test will WRITE to the last sector of the disk."
-echo "Any existing data in that sector may be CORRUPTED or LOST!"
+if [ -z "$1" ]; then
+    echo "❌ No disk specified!"
+    echo "Usage: $0 /dev/sdX"
+    exit 1
+fi
+
+DISK="$1"
+
+
+echo "⚠️ WARNING: This test will WRITE to the last sector of the disk ($DISK)."
+echo "Any existing data in that sector (or potentially wrapped sectors) may be CORRUPTED or LOST!"
 echo "Proceeding may destroy data. Make sure you have backups."
 
 read -p "Type YES to continue, anything else to abort: " CONFIRM </dev/tty
@@ -23,13 +32,7 @@ for cmd in "${REQUIRED_CMDS[@]}"; do
 done
 
 
-if [ -z "$1" ]; then
-    echo "❌ No disk specified!"
-    echo "Usage: $0 /dev/sdX"
-    exit 1
-fi
 
-DISK="$1"
 
 BLOCK_SIZE=$(cat /sys/block/$(basename $DISK)/queue/logical_block_size)
 
